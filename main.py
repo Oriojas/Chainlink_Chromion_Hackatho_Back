@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from typing import Optional
-from src.queries import obtener_pronostico_extendido, procesar_pronostico
+from src.queries import obtener_pronostico_extendido, procesar_pronostico, obtener_prediccion_con_llm
 
 app = FastAPI()
 
@@ -22,6 +22,35 @@ def get_prediction(lat: float, lon: float):
         datos_pronostico = procesar_pronostico(pronostico)
         return {"pronostico": datos_pronostico}
     return {"error": "No se pudo obtener el pronóstico"}
+
+@app.get("/prediction-llm")
+def get_prediction_with_llm(lat: float, lon: float, llm_hash: Optional[str] = None):
+    """
+    Endpoint que obtiene el pronóstico del clima y lo analiza con un LLM local.
+
+    Args:
+        lat (float): Latitud de la ubicación.
+        lon (float): Longitud de la ubicación.
+        llm_hash (Optional[str]): Hash ID del modelo LLM. Si no se proporciona, usa la variable de entorno.
+
+    Returns:
+        dict: Predicción del clima interpretada por el LLM junto con los datos originales.
+    """
+    resultado = obtener_prediccion_con_llm(lat, lon, llm_hash)
+
+    if resultado.get("success"):
+        return {
+            "success": True,
+            "prediccion_interpretada": resultado.get("prediccion_llm"),
+            "datos_clima": resultado.get("datos_clima_originales"),
+            "mensaje": "Predicción generada exitosamente con análisis de LLM"
+        }
+    else:
+        return {
+            "success": False,
+            "error": resultado.get("error", "Error desconocido"),
+            "datos_clima": resultado.get("datos_clima_originales")
+        }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
