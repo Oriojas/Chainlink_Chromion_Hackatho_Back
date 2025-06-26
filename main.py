@@ -42,7 +42,7 @@ def get_prediction_with_llm(lat: float, lon: float, llm_hash: Optional[str] = No
         return {
             "success": True,
             "prediccion_interpretada": resultado.get("prediccion_llm"),
-            "datos_clima": resultado.get("datos_clima_originales"),
+            # "datos_clima": resultado.get("datos_clima_originales"),
             "mensaje": "Predicción generada exitosamente con análisis de LLM"
         }
     else:
