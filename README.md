@@ -1,337 +1,337 @@
-# 🌤️ Sistema de Predicción Climática con LLM
+# 🌤️ Weather Prediction System with LLM
 
-Microservicio basado en FastAPI que proporciona pronósticos meteorológicos interpretados por Inteligencia Artificial usando un LLM (Large Language Model) local.
+Microservice built with FastAPI that provides weather forecasts interpreted by Artificial Intelligence using a local LLM (Large Language Model).
 
-## 🎯 Características Principales
+## 🎯 Key Features
 
-- **FastAPI backend** para alto rendimiento
-- **Integración con OpenWeatherMap API** para datos meteorológicos precisos
-- **Análisis con LLM local** para interpretaciones y recomendaciones inteligentes
-- **Formato JSON** para fácil integración
-- **Configuración flexible** mediante variables de entorno
-- **Endpoints simples y documentados**
+- **FastAPI backend** for high performance
+- **Integration with OpenWeatherMap API** for accurate weather data
+- **Analysis with local LLM** for intelligent interpretations and recommendations
+- **JSON format** for easy integration
+- **Flexible configuration** via environment variables
+- **Simple and documented endpoints**
 
-## 🚀 Endpoints Disponibles
+## 🚀 Available Endpoints
 
-### 1. `/prediction` - Pronóstico Básico
+### 1. `/prediction` - Basic Forecast
 
-Devuelve datos meteorológicos en formato JSON.
+Returns weather data in JSON format.
 
-**Método:** GET  
-**Parámetros:**
-- `lat` (float): Latitud de la ubicación
-- `lon` (float): Longitud de la ubicación
+**Method:** GET  
+**Parameters:**
+- `lat` (float): Location latitude
+- `lon` (float): Location longitude
 
-**Ejemplo:**
+**Example:**
 ```bash
 curl "http://localhost:8000/prediction?lat=4.60971&lon=-74.08175"
 ```
 
-**Respuesta:**
+**Response:**
 ```json
 {
-  "pronostico": [
+  "forecast": [
     {
-      "fecha": "12/06 22:00",
-      "temperatura": "11.36°C",
-      "descripcion": "Muy nuboso",
-      "prob_precipitacion": "8.0%"
+      "date": "12/06 22:00",
+      "temperature": "11.36°C",
+      "description": "Mostly cloudy",
+      "precipitation_probability": "8.0%"
     }
   ]
 }
 ```
 
-### 2. `/prediction-llm` - Pronóstico con Análisis IA
+### 2. `/prediction-llm` - Forecast with AI Analysis
 
-Combina datos meteorológicos con análisis interpretativo de un LLM local.
+Combines weather data with interpretative analysis from a local LLM.
 
-**Método:** GET  
-**Parámetros:**
-- `lat` (float): Latitud de la ubicación
-- `lon` (float): Longitud de la ubicación
-- `llm_hash` (string, opcional): Hash ID del modelo LLM
+**Method:** GET  
+**Parameters:**
+- `lat` (float): Location latitude
+- `lon` (float): Location longitude
+- `llm_hash` (string, optional): LLM model hash ID
 
-**Ejemplo:**
+**Example:**
 ```bash
-# Con hash específico
-curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=tu-hash-aqui"
+# With specific hash
+curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=your-hash-here"
 
-# Con hash por defecto
+# With default hash
 curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175"
 ```
 
-**Respuesta:**
+**Response:**
 ```json
 {
   "success": true,
-  "prediccion_interpretada": {
-    "response": "Basándome en los datos meteorológicos...",
-    "analysis": "Recomendaciones y análisis del LLM"
+  "interpreted_prediction": {
+    "response": "Based on the weather data...",
+    "analysis": "LLM recommendations and analysis"
   },
-  "datos_clima": {
-    "pronostico": [...]
+  "weather_data": {
+    "forecast": [...]
   },
-  "mensaje": "Predicción generada exitosamente con análisis de LLM"
+  "message": "Prediction successfully generated with LLM analysis"
 }
 ```
 
-## 🛠️ Instalación y Configuración
+## 🛠️ Installation and Configuration
 
-### Requisitos
+### Requirements
 - Python 3.8+
-- API key de OpenWeatherMap (gratuita)
-- LLM local ejecutándose (para funcionalidad IA)
+- OpenWeatherMap API key (free)
+- Local LLM running (for AI functionality)
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 ```bash
 git clone https://github.com/Oriojas/Chainlink_Chromion_Hackatho_Backn.git
 cd Chainlink_Chromion_Hackatho_Backn
 ```
 
-### 2. Instalar dependencias
+### 2. Install dependencies
 ```bash
 pip install -r requirements.txt
-# o usando poetry
+# or using poetry
 poetry install
 ```
 
-### 3. Configurar variables de entorno
-Crea un archivo `.env` basado en `.env.example`:
+### 3. Configure environment variables
+Create a `.env` file based on `.env.example`:
 
 ```bash
-# API Key de OpenWeatherMap
-OPENWEATHER_APP_KEY=tu_api_key_aqui
+# OpenWeatherMap API Key
+OPENWEATHER_APP_KEY=your_api_key_here
 
-# Configuración del servidor
+# Server configuration
 FASTAPI_HOST=0.0.0.0
 FASTAPI_PORT=8000
 
-# Configuración del LLM local (opcional)
+# Local LLM configuration (optional)
 LLM_BASE_URL=http://localhost:3001
-LLM_HASH_ID=tu-hash-del-modelo-aqui
+LLM_HASH_ID=your-model-hash-here
 LLM_TIMEOUT=30
 ```
 
-### 4. Obtener API Key de OpenWeatherMap
-1. Visita [OpenWeatherMap](https://openweathermap.org/api)
-2. Regístrate gratuitamente
-3. Obtén tu API key
-4. Agrégala al archivo `.env`
+### 4. Get OpenWeatherMap API Key
+1. Visit [OpenWeatherMap](https://openweathermap.org/api)
+2. Register for free
+3. Get your API key
+4. Add it to the `.env` file
 
-## 🚀 Uso
+## 🚀 Usage
 
-### Iniciar el servidor
+### Start the server
 ```bash
 python main.py
 ```
 
-El servidor estará disponible en: `http://localhost:8000`
+The server will be available at: `http://localhost:8000`
 
-### Documentación interactiva
-Visita `http://localhost:8000/docs` para la documentación automática de Swagger.
+### Interactive documentation
+Visit `http://localhost:8000/docs` for automatic Swagger documentation.
 
-## 🤖 Configuración del LLM
+## 🤖 LLM Configuration
 
-### Requisitos para funcionalidad IA:
-1. **LLM local ejecutándose** en `http://localhost:3001`
-2. **Hash del modelo** (específico para cada ejecución)
-3. **Endpoint funcional:** `http://localhost:3001/{hash}/message`
+### Requirements for AI functionality:
+1. **Local LLM running** at `http://localhost:3001`
+2. **Model hash** (specific to each execution)
+3. **Functional endpoint:** `http://localhost:3001/{hash}/message`
 
-### ⚠️ Importante sobre el Hash:
-- El hash **cambia en cada ejecución** del modelo LLM
-- Debes **obtener el hash actual** desde la interfaz de tu LLM
-- Ejemplo: `dd1a3913-6f2b-060b-9d69-7efb4bce9f01`
+### ⚠️ Important about the Hash:
+- The hash **changes with each execution** of the LLM model
+- You must **get the current hash** from your LLM interface
+- Example: `dd1a3913-6f2b-060b-9d69-7efb4bce9f01`
 
-### Configuración del Hash:
+### Hash Configuration:
 
-#### Opción 1: Variable de entorno (recomendado)
+#### Option 1: Environment variable (recommended)
 ```bash
-LLM_HASH_ID=tu-hash-del-modelo-aqui
+LLM_HASH_ID=your-model-hash-here
 ```
 
-#### Opción 2: Parámetro en la URL
+#### Option 2: URL parameter
 ```bash
-curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=tu-hash-aqui"
+curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=your-hash-here"
 ```
 
-## 🧪 Pruebas
+## 🧪 Testing
 
-### Suite de pruebas automatizada
+### Automated test suite
 ```bash
 python test/test_weather_prediction.py
 ```
 
-Esta suite de pruebas incluye:
-- ✅ Verificación de conexión con FastAPI
-- ✅ Prueba del endpoint básico `/prediction`
-- ✅ Prueba del endpoint con IA `/prediction-llm`
-- ✅ Verificación de conexión con LLM
-- ✅ Pruebas con múltiples ubicaciones
+This test suite includes:
+- ✅ FastAPI connection verification
+- ✅ Basic endpoint `/prediction` test
+- ✅ AI endpoint `/prediction-llm` test
+- ✅ LLM connection verification
+- ✅ Tests with multiple locations
 
-### Pruebas manuales
+### Manual testing
 ```bash
-# Probar endpoint básico
+# Test basic endpoint
 curl "http://localhost:8000/prediction?lat=4.60971&lon=-74.08175"
 
-# Probar endpoint con LLM
-curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=tu-hash"
+# Test LLM endpoint
+curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175&llm_hash=your-hash"
 ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 Chainlink_Chromion_Hackatho_Backn/
 ├── src/
-│   ├── queries.py          # Lógica de consultas meteorológicas y LLM
-│   ├── pronostico.json     # Ejemplo de salida
-│   └── __pycache__/        # Cache de Python
+│   ├── queries.py          # Weather and LLM query logic
+│   ├── forecast.json       # Example output
+│   └── __pycache__/        # Python cache
 ├── test/
-│   └── test_weather_prediction.py  # Suite de pruebas unificada
-├── main.py                 # Aplicación FastAPI principal
-├── .env.example           # Plantilla de configuración
+│   └── test_weather_prediction.py  # Unified test suite
+├── main.py                 # Main FastAPI application
+├── .env.example           # Configuration template
 ├── .gitignore
 ├── LICENSE
-├── README.md              # Este archivo
+├── README.md              # This file
 ├── poetry.lock
-└── pyproject.toml         # Configuración de dependencias
+└── pyproject.toml         # Dependency configuration
 ```
 
-## 🔧 Funcionalidades Técnicas
+## 🔧 Technical Features
 
-### Procesamiento de Datos Climáticos
-- Obtiene pronóstico extendido (5 días, intervalos de 3 horas)
-- Formatea fechas y datos meteorológicos
-- Extrae información relevante (temperatura, descripción, precipitación)
+### Weather Data Processing
+- Gets extended forecast (5 days, 3-hour intervals)
+- Formats dates and weather data
+- Extracts relevant information (temperature, description, precipitation)
 
-### Integración con LLM
-- Crea texto descriptivo optimizado para el LLM
-- Envía solicitudes HTTP al LLM local
-- Maneja errores de conexión y timeouts
-- Devuelve respuestas estructuradas
+### LLM Integration
+- Creates optimized descriptive text for the LLM
+- Sends HTTP requests to the local LLM
+- Handles connection errors and timeouts
+- Returns structured responses
 
-### Análisis Solicitado al LLM
-El sistema solicita al LLM:
-- 📊 Análisis del patrón climático general
-- 👕 Recomendaciones de vestimenta y actividades
-- ⚠️ Alertas o precauciones importantes
-- 📈 Predicción de tendencias futuras
+### LLM Analysis Requests
+The system requests the LLM to provide:
+- 📊 General weather pattern analysis
+- 👕 Clothing and activity recommendations
+- ⚠️ Important alerts or precautions
+- 📈 Future trend predictions
 
-## 🌍 Ejemplos de Uso
+## 🌍 Usage Examples
 
-### Ciudades de Ejemplo
+### Example Cities
 
 #### Bogotá, Colombia
 ```bash
 curl "http://localhost:8000/prediction-llm?lat=4.60971&lon=-74.08175"
 ```
 
-#### Madrid, España
+#### Madrid, Spain
 ```bash
 curl "http://localhost:8000/prediction-llm?lat=40.4168&lon=-3.7038"
 ```
 
-#### Ciudad de México, México
+#### Mexico City, Mexico
 ```bash
 curl "http://localhost:8000/prediction-llm?lat=19.4326&lon=-99.1332"
 ```
 
-## ⚠️ Manejo de Errores
+## ⚠️ Error Handling
 
-### Errores Comunes y Soluciones
+### Common Errors and Solutions
 
-#### 1. Error de API del clima
+#### 1. Weather API error
 ```json
 {
   "success": false,
-  "error": "No se pudo obtener el pronóstico del clima"
+  "error": "Could not retrieve weather forecast"
 }
 ```
-**Solución:** Verifica tu API key de OpenWeatherMap.
+**Solution:** Verify your OpenWeatherMap API key.
 
-#### 2. Error de conexión con LLM
+#### 2. LLM connection error
 ```json
 {
   "success": false,
-  "error": "Error al consultar LLM local: [detalle]"
+  "error": "Error querying local LLM: [detail]"
 }
 ```
-**Solución:** Verifica que el LLM esté ejecutándose y el hash sea correcto.
+**Solution:** Ensure the LLM is running and the hash is correct.
 
-#### 3. Timeout del LLM
-**Solución:** Aumenta el valor de `LLM_TIMEOUT` en las variables de entorno.
+#### 3. LLM timeout
+**Solution:** Increase the `LLM_TIMEOUT` value in environment variables.
 
-## 🚨 Solución de Problemas
+## 🚨 Troubleshooting
 
-### LLM no responde:
-1. ✅ Verifica que el LLM esté en `http://localhost:3001`
-2. 🔑 **Confirma que el hash del modelo sea correcto** (error más común)
-3. 🔗 Verifica el endpoint: `http://localhost:3001/{hash}/message`
-4. 📋 Revisa los logs para errores de conexión
-5. 🧪 Prueba el LLM directamente con curl
+### LLM not responding:
+1. ✅ Verify the LLM is at `http://localhost:3001`
+2. 🔑 **Confirm the model hash is correct** (most common error)
+3. 🔗 Check the endpoint: `http://localhost:3001/{hash}/message`
+4. 📋 Review logs for connection errors
+5. 🧪 Test the LLM directly with curl
 
-### API del clima no funciona:
-1. 🔑 Verifica tu API key de OpenWeatherMap
-2. 📍 Confirma que las coordenadas sean válidas (-90 a 90 lat, -180 a 180 lon)
-3. 📊 Revisa tu cuota de API calls
+### Weather API not working:
+1. 🔑 Verify your OpenWeatherMap API key
+2. 📍 Confirm coordinates are valid (-90 to 90 lat, -180 to 180 lon)
+3. 📊 Check your API call quota
 
-### Servidor no inicia:
-1. 🐍 Verifica que Python 3.8+ esté instalado
-2. 📦 Instala las dependencias: `pip install -r requirements.txt`
-3. 🔧 Verifica el archivo `.env`
+### Server not starting:
+1. 🐍 Verify Python 3.8+ is installed
+2. 📦 Install dependencies: `pip install -r requirements.txt`
+3. 🔧 Check the `.env` file
 
-## 🔄 Flujo de Trabajo del Sistema
+## 🔄 System Workflow
 
 ```
-Cliente solicita /prediction-llm
+Client requests /prediction-llm
         ↓
-Obtener datos climáticos (OpenWeatherMap)
+Get weather data (OpenWeatherMap)
         ↓
-Procesar datos meteorológicos
+Process weather data
         ↓
-Crear texto optimizado para LLM
+Create optimized text for LLM
         ↓
-Consultar LLM local
+Query local LLM
         ↓
-Combinar respuestas
+Combine responses
         ↓
-Retornar resultado completo
+Return complete result
 ```
 
-## 🔜 Mejoras Futuras
+## 🔜 Future Improvements
 
-- 📚 Caché de respuestas del LLM
-- 🔄 Múltiples LLMs para comparación
-- 😊 Análisis de sentimientos del clima
-- 🌐 Integración con más APIs meteorológicas
-- 👤 Personalización de prompts por usuario
-- 📱 API para aplicaciones móviles
+- 📚 LLM response caching
+- 🔄 Multiple LLMs for comparison
+- 😊 Weather sentiment analysis
+- 🌐 Integration with more weather APIs
+- 👤 User-specific prompt customization
+- 📱 Mobile app API
 
-## 🤝 Contribución
+## 🤝 Contribution
 
-Este proyecto forma parte del **Chainlink Chromion Hackathon**.
+This project is part of the **Chainlink Chromion Hackathon**.
 
-### Repositorio del Agente IA
+### AI Agent Repository
 https://github.com/Oriojas/eliza-starter-orc.git
 
-### Cómo contribuir:
-1. Fork el repositorio
-2. Crea una rama para tu feature
-3. Commit tus cambios
-4. Push a la rama
-5. Abre un Pull Request
+### How to contribute:
+1. Fork the repository
+2. Create a branch for your feature
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 📄 Licencia
+## 📄 License
 
-MIT License - Ver archivo [LICENSE](LICENSE) para más detalles.
+MIT License - See [LICENSE](LICENSE) for details.
 
-## 📞 Soporte
+## 📞 Support
 
-Si tienes problemas:
-1. 📖 Revisa esta documentación
-2. 🧪 Ejecuta las pruebas: `python test/test_weather_prediction.py`
-3. 📋 Revisa los logs del servidor
-4. 🐛 Reporta issues en GitHub
+If you encounter issues:
+1. 📖 Review this documentation
+2. 🧪 Run tests: `python test/test_weather_prediction.py`
+3. 📋 Check server logs
+4. 🐛 Report issues on GitHub
 
 ---
 
-**¡Gracias por usar el Sistema de Predicción Climática con LLM!** 🌤️🤖
+**Thank you for using the Weather Prediction System with LLM!** 🌤️🤖
