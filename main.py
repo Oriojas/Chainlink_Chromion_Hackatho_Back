@@ -5,6 +5,24 @@ from src.queries import obtener_pronostico_extendido, procesar_pronostico, obten
 
 app = FastAPI()
 
+@app.get("/")
+def root():
+    """
+    Endpoint raíz que muestra un mensaje de bienvenida.
+
+    Returns:
+        dict: Mensaje de bienvenida y descripción de la API.
+    """
+    return {
+        "mensaje": "Bienvenido a la API de pronóstico del clima",
+        "descripcion": "Esta API proporciona pronósticos del clima y análisis utilizando modelos LLM.",
+        "endpoints": {
+            "/prediction": "Obtiene el pronóstico del clima en formato JSON.",
+            "/prediction-llm": "Obtiene el pronóstico del clima analizado por un LLM."
+        }
+    }
+
+
 @app.get("/prediction")
 def get_prediction(lat: float, lon: float):
     """
