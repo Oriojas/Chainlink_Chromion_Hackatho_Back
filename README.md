@@ -17,7 +17,7 @@ Microservice built with FastAPI that provides weather forecasts interpreted by A
 
 Returns weather data in JSON format.
 
-**Method:** GET  
+**Method:** GET
 **Parameters:**
 - `lat` (float): Location latitude
 - `lon` (float): Location longitude
@@ -45,7 +45,7 @@ curl "http://localhost:8000/prediction?lat=4.60971&lon=-74.08175"
 
 Combines weather data with interpretative analysis from a local LLM.
 
-**Method:** GET  
+**Method:** GET
 **Parameters:**
 - `lat` (float): Location latitude
 - `lon` (float): Location longitude
@@ -305,20 +305,6 @@ Return complete result
 - 🌐 Integration with more weather APIs
 - 👤 User-specific prompt customization
 - 📱 Mobile app API
-
-## 🤝 Contribution
-
-This project is part of the **Chainlink Chromion Hackathon**.
-
-### AI Agent Repository
-https://github.com/Oriojas/eliza-starter-orc.git
-
-### How to contribute:
-1. Fork the repository
-2. Create a branch for your feature
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
 
 ## 📄 License
 
